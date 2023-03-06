@@ -44,9 +44,9 @@ public class UserDao {
     }
 
     @Transactional
-    public void delete(int user) {
+    public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(user);
+        session.remove(session.get(User.class, id));
     }
 
 
