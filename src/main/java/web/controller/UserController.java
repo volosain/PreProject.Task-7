@@ -21,13 +21,13 @@ public class UserController {
     }
 
     @GetMapping("")
-    public String users(Model model) {  // получим все автомобили
+    public String users(Model model) {
         model.addAttribute("users", userServiceList.getAll());
         return "users";
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {  // получим машину по id
+    public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userServiceList.getById(id));
         return "show";
     }
@@ -38,12 +38,12 @@ public class UserController {
         return "new";
     }
     @PostMapping()
-    public String create(@ModelAttribute("user") @Valid User user, //добавляем новую машину
+    public String create(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult){
-        if(bindingResult.hasErrors())               //проверяем на валидацию
+        if(bindingResult.hasErrors())
             return "new";
         userServiceList.save(user);
-        return "redirect:/users"; //при добавлении возвращает нас на главную страницу с списком
+        return "redirect:/users";
     }
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id){;
@@ -51,17 +51,17 @@ public class UserController {
         return "edit";
     }
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, //изменяем данные по машине
+    public String update(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult,
                          @PathVariable("id") int id){
-        if (bindingResult.hasErrors())     //проверяем на валидацию
+        if (bindingResult.hasErrors())
             return "edit";
         userServiceList.update(user);
         return "redirect:/users";
 
     }
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id){ //удаляем машину
+    public String delete(@PathVariable("id") int id){
         userServiceList.delete(id);
 
         return "redirect:/users";
